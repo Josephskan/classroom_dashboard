@@ -1,0 +1,12 @@
+<h1>Hello user</h1>
+<p>
+  Add a <%= link_to "new classroom!", new_classroom_path  %>
+</p>
+
+<% @classrooms.each do |classroom| %>
+  <div>
+    <h2><%= classroom.classroom_name %> <small style="font-size: 50%"><%= link_to "show", classroom_path(classroom) %></small></h2>
+    <p><%= classroom.passcode %></p>
+    <hr>
+  </div>
+<% end %>

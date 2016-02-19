@@ -1,0 +1,33 @@
+<%= form_for @user do |f| %>
+  <div>
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
+  </div>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.radio_button(:status, "teacher") %>
+    <%= f.label(:status_teacher, "I am a teacher") %><br>
+    <%= f.radio_button(:status, "student") %>
+    <%= f.label(:status_student, "I am a student") %><br>
+    <%= f.radio_button(:status, "parent") %>
+    <%= f.label(:status_parent, "I am a parent") %><br>
+  </div>
+  <div>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div>
+    <%= f.submit "Submit" %> 
+  </div>
+<% end %>
