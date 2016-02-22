@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217183943) do
+ActiveRecord::Schema.define(version: 20160219211127) do
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "passcode"
@@ -20,12 +20,22 @@ ActiveRecord::Schema.define(version: 20160217183943) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "parent_memberships", force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "classroom_id"
+  end
+
+  create_table "student_memberships", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "classroom_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.string   "status"
+    t.string   "type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

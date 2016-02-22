@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
 
+  before_action :set_user, only: [ :destroy ]
+  before_action :set_type
+
   def new
-    @user = User.new
+    @user = type_class.new
   end
 
   def create
     @user = User.new(user_params)
-    binding.pry
 
     if @user.save
       session[:user_id] = @user.id
@@ -18,10 +20,44 @@ class UsersController < ApplicationController
 
   protected
 
+  def set_type 
+    @type = type
+  end
+
+  def type
+    User.types.include?(params[:type]) ? params[:type] : 'User'
+  end
+
+  def type_class
+    type.constantize
+  end
+
+  def set_user
+    @user = type_class.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:username, :name, :email, :status, :password, :password_confirmation) 
+    params.require(:user).permit(:username, :name, :email, :type, :password, :password_confirmation) 
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # class TeachersController < UsersController
 

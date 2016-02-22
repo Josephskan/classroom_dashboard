@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :users, only: [ :new, :create ]
-  resources :teachers, only: [:new, :create]
+  resources :teachers, controller: 'users', type: 'Teacher', only: [ :new, :create ]
+  resources :students, controller: 'users', type: 'Student', only: [ :new, :create ]
+  resources :parents, controller: 'users', type: 'Parent', only: [ :new, :create ]
   resources :sessions, only: [ :new, :create, :destroy ]
   resources :classrooms
 

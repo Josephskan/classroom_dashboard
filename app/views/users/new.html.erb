@@ -12,12 +12,12 @@
     <%= f.text_field :email %>
   </div>
   <div>
-    <%= f.radio_button(:status, "teacher") %>
-    <%= f.label(:status_teacher, "I am a teacher") %><br>
-    <%= f.radio_button(:status, "student") %>
-    <%= f.label(:status_student, "I am a student") %><br>
-    <%= f.radio_button(:status, "parent") %>
-    <%= f.label(:status_parent, "I am a parent") %><br>
+    <%= f.radio_button(:type, "Teacher") %>
+    <%= f.label(:type_teacher, "I am a Teacher") %><br>
+    <%= f.radio_button(:type, "Student") %>
+    <%= f.label(:type_student, "I am a Student") %><br>
+    <%= f.radio_button(:type, "Parent") %>
+    <%= f.label(:type_parent, "I am a Parent") %><br>
   </div>
   <div>
     <%= f.label :password %><br>
