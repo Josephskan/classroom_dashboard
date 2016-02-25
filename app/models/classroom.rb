@@ -1,10 +1,10 @@
 class Classroom < ActiveRecord::Base
   belongs_to :teacher, class_name: "User"
-  has_many :messages
+  has_many :messages, dependent: :destroy
   has_and_belongs_to_many :students, :join_table => :student_memberships
   has_and_belongs_to_many :parents, :join_table => :parent_memberships
-  has_many :student_memberships
-  has_many :parent_memberships
+  has_many :student_memberships, dependent: :destroy
+  has_many :parent_memberships, dependent: :destroy
 
   validates :classroom_name, presence: true 
   validates :teacher, presence: true

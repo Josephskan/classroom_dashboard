@@ -1,4 +1,5 @@
 <h1>Write a comment!</h1>
+<%= link_to "return to classroom?", classroom_path(@classroom) %>
 
 <%= form_for @comment, url: classroom_message_create_comment_index_path(@classroom.id, @message.id) do |f| %>
   <div>

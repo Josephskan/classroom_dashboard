@@ -1,4 +1,4 @@
 class Teacher < User
-  has_many :classrooms
-  has_many :messages
+  has_many :classrooms, dependent: :destroy
+  has_many :messages, dependent: :destroy
 end

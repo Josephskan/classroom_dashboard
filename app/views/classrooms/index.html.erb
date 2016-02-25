@@ -1,8 +1,9 @@
 <h1>Hello user</h1>
-<%= react_component('ClassList') %>
   <% if @current_user.is_a?(Teacher) %>
-    <p>Add a <%= link_to "new classroom!", new_classroom_path  %></p>
+    Add a <%= link_to "new classroom!", new_classroom_path  %>.
   <% end %>
+<%= react_component('ClassList') %>
+
 
   <% @classrooms.each do |classroom| %>
   <hr>
