@@ -1,7 +1,23 @@
 class Classroom < ActiveRecord::Base
-  belongs_to :teacher
-  has_and_belongs_to_many :students, :through => :student_memberships
-  has_and_belongs_to_many :parents, :through => :parent_memberships
+  belongs_to :teacher, class_name: "User"
+  has_many :messages
+  has_and_belongs_to_many :students, :join_table => :student_memberships
+  has_and_belongs_to_many :parents, :join_table => :parent_memberships
+  has_many :student_memberships
+  has_many :parent_memberships
 
   validates :classroom_name, presence: true 
+  validates :teacher, presence: true
+
+  def check_teacher(classroom, user)
+    classroom.teacher == user
+  end
+
+  def check_student_membership(classroom, user)
+    StudentMembership.where("classroom_id = ? AND student_id = ?", classroom.id, user.id)
+  end
+
+  def check_parent_membership(classroom, user)
+    ParentMembership.where("classroom_id = ? AND parent_id = ?", classroom.id, user.id)
+  end
 end

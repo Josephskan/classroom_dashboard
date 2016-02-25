@@ -11,14 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219211127) do
+ActiveRecord::Schema.define(version: 20160224183353) do
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "passcode"
     t.string   "classroom_name"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "teacher_id"
   end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["user_id"], name: "comments_on_user_id"
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "teacher_id"
+    t.integer  "classroom_id"
+    t.text     "text"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "messages", ["classroom_id"], name: "messages_on_classroom_id"
+  add_index "messages", ["teacher_id"], name: "messages_on_teacher_id"
 
   create_table "parent_memberships", force: :cascade do |t|
     t.integer "parent_id"

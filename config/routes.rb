@@ -5,7 +5,15 @@ Rails.application.routes.draw do
   resources :students, controller: 'users', type: 'Student', only: [ :new, :create ]
   resources :parents, controller: 'users', type: 'Parent', only: [ :new, :create ]
   resources :sessions, only: [ :new, :create, :destroy ]
-  resources :classrooms
+  resources :classrooms do
+    resources :student_memberships, only: [ :create, :new, :destroy]
+    resources :parent_memberships, only: [ :create, :new, :destroy]
+    resources :messages do
+      resources :comments, except: [ :create ]
+      resources :comments, only: [ :create ], as: "create_comment"
+    end
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

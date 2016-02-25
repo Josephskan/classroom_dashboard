@@ -10,6 +10,27 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def teacher_access
+    if !@current_user.is_a?(Teacher)
+      flash[:alert] = "You must be a teacher."
+      redirect_to classrooms_path
+    end
+  end
+
+  def student_access
+    if !@current_user.is_a?(Student)
+      flash[:alert] = "You must be a student."
+      redirect_to classrooms_path
+    end
+  end
+
+  def parent_access
+    if !@current_user.is_a?(Parent)
+      flash[:alert] = "You must be a teacher."
+      redirect_to classrooms_path
+    end
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end

@@ -1,19 +1,32 @@
 <h1>Hello user</h1>
-<% if @current_user.is_a?(Teacher) %>
-  <p>Add a <%= link_to "new classroom!", new_classroom_path  %></p>
-<% end %>
+<%= react_component('ClassList') %>
+  <% if @current_user.is_a?(Teacher) %>
+    <p>Add a <%= link_to "new classroom!", new_classroom_path  %></p>
+  <% end %>
 
-<% @classrooms.each do |classroom| %>
-  <div>
-    <h2>
-      <%= classroom.classroom_name %></h2>
-      <% if @current_user.is_a?(Teacher) %>
-        <small><%= link_to "show", classroom_path(classroom) %></small>
-      <% else %>
-        <small><%= link_to "join this class?", classroom_path(classroom) %></small>
-      <% end %>
-    </h2>
-    <p><%= classroom.passcode %></p>
-    <hr>
-  </div>
-<% end %>
+  <% @classrooms.each do |classroom| %>
+  <hr>
+    <div>
+      <h2><%= classroom.classroom_name %></h2>
+        <% if @current_user.is_a?(Teacher) %>
+          <% if classroom.check_teacher(classroom, @current_user) %>
+            <small><%= link_to "show", classroom_path(classroom) %></small>
+          <% else %>
+          <p>You are not a teacher of this classroom</p>
+          <% end %>
+        <% else %>
+          <% if classroom.check_student_membership(classroom, @current_user).first || classroom.check_parent_membership(classroom, @current_user).first %>
+            <small><%= link_to "enter this class?", classroom_path(classroom) %></small>
+          <% else %>
+            <% if @current_user.is_a?(Student) %>
+              <small><%= link_to "join this class?", new_classroom_student_membership_path(classroom) %></small>
+            <% else @current_user.is_a?(Parent) %>
+              <small><%= link_to "join this class?", new_classroom_parent_membership_path(classroom) %></small>
+            <% end %>
+          <% end %>
+        <% end %>
+      </h2>
+
+      <p><%= classroom.passcode %></p>
+    </div>
+  <% end %>
