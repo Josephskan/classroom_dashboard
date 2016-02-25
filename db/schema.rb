@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224183353) do
+ActiveRecord::Schema.define(version: 20160225205715) do
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "passcode"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20160224183353) do
     t.text     "text"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "type"
   end
 
   add_index "messages", ["classroom_id"], name: "messages_on_classroom_id"

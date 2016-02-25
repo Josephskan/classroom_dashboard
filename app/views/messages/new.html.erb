@@ -3,6 +3,15 @@
 
 <%= form_for [@classroom, @message] do |f| %>
   <div>
+    <p>select the message type:</p>
+    <%= f.radio_button(:type, "General") %>
+    <%= f.label(:type_general, "General") %><br>
+    <%= f.radio_button(:type, "Homework") %>
+    <%= f.label(:type_homework, "Homework") %><br>
+    <%= f.radio_button(:type, "Reminder") %>
+    <%= f.label(:type_reminder, "Reminder") %><br>
+  </div>
+  <div>
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>

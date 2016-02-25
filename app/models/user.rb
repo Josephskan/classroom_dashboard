@@ -13,5 +13,4 @@ class User < ActiveRecord::Base
       %w(Teacher Student Parent)
     end
   end
-
 end

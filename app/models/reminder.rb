@@ -1,0 +1,2 @@
+class Reminder < Message
+end

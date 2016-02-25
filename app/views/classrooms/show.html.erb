@@ -6,7 +6,7 @@
 
 <% if @classroom.messages.length > 0 %>
   <% @classroom.messages.each do |message| %>
-    <h3><%= message.title %></h3>
+    <h3><%= message.title %></h3><h4><%= message.type %></h4>
     <p><%= message.text %></p>
     <% if message.comments.length > 0 %>
       <% message.comments.each do |comment| %>
@@ -17,6 +17,6 @@
       <% end %>
     <% end %>
 
-    <p><%= link_to "make a comment", new_classroom_message_comment_path(@classroom.id, message.id, @comment) %></p>
+    <p><%= link_to "Reply", new_classroom_message_comment_path(@classroom.id, message.id, @comment) %></p>
   <% end %>
 <% end %>

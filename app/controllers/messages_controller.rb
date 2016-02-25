@@ -29,7 +29,23 @@ class MessagesController < ApplicationController
   protected
 
   def message_params
-    params.require(:message).permit( :title, :text, :classroom_id)
+    params.require(:message).permit( :title, :text, :classroom_id, :type)
+  end
+
+  def set_type 
+    @type = type
+  end
+
+  def type
+    Message.types.include?(params[:type]) ? params[:type] : 'Message'
+  end
+
+  def type_class
+    type.constantize
+  end
+
+  def set_message
+    @message = type_class.find(params[:id])
   end
 
 end

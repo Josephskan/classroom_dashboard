@@ -5,13 +5,20 @@ Rails.application.routes.draw do
   resources :students, controller: 'users', type: 'Student', only: [ :new, :create ]
   resources :parents, controller: 'users', type: 'Parent', only: [ :new, :create ]
   resources :sessions, only: [ :new, :create, :destroy ]
+
   resources :classrooms do
+
     resources :student_memberships, only: [ :create, :new, :destroy]
     resources :parent_memberships, only: [ :create, :new, :destroy]
+
     resources :messages do
       resources :comments, except: [ :create ]
       resources :comments, only: [ :create ], as: "create_comment"
     end
+
+    resources :homeworks, controller: 'messages', type: 'Homework', only: [ :new, :create ]
+    resources :generals, controller: 'messages', type: 'General', only: [ :new, :create ]
+    resources :reminders, controller: 'messages', type: 'Reminder', only: [ :new, :create ]
   end
 
 
