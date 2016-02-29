@@ -20,4 +20,8 @@ class Classroom < ActiveRecord::Base
   def check_parent_membership(classroom, user)
     ParentMembership.where("classroom_id = ? AND parent_id = ?", classroom.id, user.id)
   end
+
+  def as_json(opstions={})
+    super(methods:[:teacher] )
+  end
 end

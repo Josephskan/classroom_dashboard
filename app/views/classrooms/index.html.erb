@@ -2,8 +2,8 @@
   <% if @current_user.is_a?(Teacher) %>
     Add a <%= link_to "new classroom!", new_classroom_path  %>.
   <% end %>
-<%= react_component('ClassList') %>
 
+  <%= react_component('ClassList', classrooms: @classrooms, current_user: @current_user) %>
 
   <% @classrooms.each do |classroom| %>
   <hr>

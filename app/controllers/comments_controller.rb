@@ -1,16 +1,13 @@
 class CommentsController < ApplicationController
 
   before_filter :restrict_access
+  before_filter :find_classroom_and_message, only: [:new, :create, :index]
 
   def new
-    @classroom = Classroom.find(params[:classroom_id])
-    @message = Message.find(params[:message_id])
     @comment = @message.comments.build
   end
 
   def create
-    @classroom = Classroom.find(params[:classroom_id])
-    @message = Message.find(params[:message_id])
     @comment = @message.comments.build(comment_params)
     @comment.user_id = current_user.id
 
@@ -21,10 +18,23 @@ class CommentsController < ApplicationController
     end
   end
 
+  def index
+    @comments = Comments.all.where("classroom_id = ? AND message_id = ?", @classroom, @message)
+    respond_to do |format|
+      format.html
+      format.json { render json: @comments}
+    end
+  end
+
   def destroy
   end
 
   protected
+
+  def find_classroom_and_message
+    @classroom = Classroom.find(params[:classroom_id])  
+    @message = Message.find(params[:message_id])
+  end
 
   def comment_params
     params.require(:comment).permit( :text, :message_id)

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root "classrooms#index"
+
   resources :users, only: [ :new, :create ]
   resources :teachers, controller: 'users', type: 'Teacher', only: [ :new, :create ]
   resources :students, controller: 'users', type: 'Student', only: [ :new, :create ]
