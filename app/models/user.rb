@@ -8,6 +8,14 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :type, presence: true
 
+  def memberships_of_user(user)
+    if user.is_a?(Student)
+      return StudentMembership.where("student_id = ?", user.id)
+    elsif user.is_a?(Parent)
+      return ParentMembership.where("parent_id = ?", user.id)
+    end
+  end
+
   class << self
     def types
       %w(Teacher Student Parent)

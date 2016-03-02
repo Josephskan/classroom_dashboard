@@ -21,7 +21,7 @@ class Classroom < ActiveRecord::Base
     ParentMembership.where("classroom_id = ? AND parent_id = ?", classroom.id, user.id)
   end
 
-  def as_json(opstions={})
-    super(methods:[:teacher] )
+  def as_json(options={})
+    super(methods:[:teacher])
   end
 end

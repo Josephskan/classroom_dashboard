@@ -29,7 +29,7 @@ class ClassroomsController < ApplicationController
   end
 
   def destroy
-    @classroom = classroom.find(params[:id])
+    @classroom = Classroom.find(params[:id])
     @classroom.destroy
     redirect_to classrooms_path
   end
@@ -38,6 +38,9 @@ class ClassroomsController < ApplicationController
 
   def classroom_params
     params.require(:classroom).permit( :classroom_name, :passcode)
+  end
+
+  def check_valid_membership(classroom)
   end
 
 end
