@@ -1,8 +1,11 @@
-<h1>Hello user</h1>
+<div class="custom-list">
+  <h1>Welcome to the ClassroomDashboard, <%= @current_user.name %>!</h1>
   <% if @current_user.is_a?(Teacher) %>
     Add a <%= link_to "new classroom!", new_classroom_path  %>.
   <% end %>
+</div> 
 
+<div class="container-fluid">
   <%= react_component(
     'ClassList', 
     classrooms: @classrooms, 
@@ -10,30 +13,4 @@
     userType: @current_user.type,
     memberships: @current_user.memberships_of_user(@current_user) 
   ) %>
-
-  <% @classrooms.each do |classroom| %>
-  <hr>
-    <div>
-      <h2><%= classroom.classroom_name %></h2>
-        <% if @current_user.is_a?(Teacher) %>
-          <% if classroom.check_teacher(classroom, @current_user) %>
-            <small><%= link_to "show", classroom_path(classroom) %></small>
-          <% else %>
-          <p>You are not a teacher of this classroom</p>
-          <% end %>
-        <% else %>
-          <% if classroom.check_student_membership(classroom, @current_user).first || classroom.check_parent_membership(classroom, @current_user).first %>
-            <small><%= link_to "enter this class?", classroom_path(classroom) %></small>
-          <% else %>
-            <% if @current_user.is_a?(Student) %>
-              <small><%= link_to "join this class?", new_classroom_student_membership_path(classroom) %></small>
-            <% else @current_user.is_a?(Parent) %>
-              <small><%= link_to "join this class?", new_classroom_parent_membership_path(classroom) %></small>
-            <% end %>
-          <% end %>
-        <% end %>
-      </h2>
-
-      <p><%= classroom.passcode %></p>
-    </div>
-  <% end %>
+</div>

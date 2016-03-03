@@ -1,22 +1,24 @@
-<% if @current_user %>
-  <% redirect_to classrooms_path %>
-<% else %>
-  <h1>Hello! user</h1>
-  <p>
-    enter your username and password below!
-  </p>
+<div class="custom-standard-view">
+  <% if @current_user %>
+    <% redirect_to classrooms_path %>
+  <% else %>
+    <h1>Hello! user</h1>
+    <p>
+      enter your username and password below!
+    </p>
 
-  <h1>Log In</h1>
-  <%= form_tag sessions_path do %>
-    <div>
-      <%= label_tag :username %><br/>
-      <%= text_field_tag :username %>
-    </div>
-    <div>
-      <%= label_tag :password %><br/>
-      <%= password_field_tag :password %>
-    </div>
-    <div><%= submit_tag "Log In" %></div>
+    <h1>Log In</h1>
+    <%= form_tag sessions_path do %>
+      <div>
+        <%= label_tag :username %><br/>
+        <%= text_field_tag :username %>
+      </div>
+      <div>
+        <%= label_tag :password %><br/>
+        <%= password_field_tag :password %>
+      </div>
+      <div><%= submit_tag "Log In" %></div>
+    <% end %>
+    <p>No account? <%= link_to "Sign up!", new_user_path %></p>
   <% end %>
-  <p>No account? <%= link_to "Sign up!", new_user_path %></p>
-<% end %>
+</div>

@@ -1,23 +1,42 @@
-<h1>welcome to the classroom show user!</h1>
-<p><%= link_to "Go back to classroom list", classrooms_path %></p>
-<% if @current_user.is_a?(Teacher) %>
-  <p><%= link_to "Create a message!", new_classroom_message_path(@classroom, @message) %></p>
-<% end %>
+<div class="container-fluid">
+  <div class="custom-classroom-view"> 
+    <h1>Welcome to <%= @classroom.classroom_name %>,  <%= @current_user.name %>!</h1>
+    <p>Teacher: <%= @classroom.teacher.name %></p>
+    <p><%= link_to "Go back to classroom list", classrooms_path %></p>
+    <% if @current_user.is_a?(Teacher) %>
+      <p><%= link_to "Create a message!", new_classroom_message_path(@classroom, @message) %></p>
+    <% end %>
+    <hr>
+    <p>If you have forgotten, the class passcode is <%= @classroom.passcode %></p>
 
-<% if @classroom.messages.length > 0 %>
-  <% @classroom.messages.each do |message| %>
-    <h3><%= message.title %></h3><h4><%= message.type %></h4>
-    <p><%= message.text %></p>    
-    <% if message.comments.length > 0 %>
-      <% message.comments.each do |comment| %>
-      <% username = (User.find(comment.user_id).username) %>
+    <% if @classroom.messages.length > 0 %>
+      <% @classroom.messages.each do |message| %>
+        <div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title" ><%= message.title %></h3>
+                <h5><%= message.type %></h5>
+              </div>
+            <div class="panel-body panel-overflow">
+              <p><%= message.text %></p>
+              <% if message.comments.length > 0 %>
+                <% message.comments.each do |comment| %>
+                <% username = (User.find(comment.user_id).username) %>
 
-      <div>
-        <%= react_component("CommentBox", comment: comment, username: username ) %>
-      </div>
+                <div class="container ">
+                  <div class="well well-sm">
+                    <%= react_component("CommentBox", comment: comment, username: username ) %>
+                  </div>
+                </div>
+                <% end %>
+              <% end %>
 
+              <p><%= link_to "Reply to the message", new_classroom_message_comment_path(@classroom.id, message.id, @comment) %></p>
+            </div>    
+          </div>
+        </div>
+        
       <% end %>
     <% end %>
-    <p><%= link_to "Reply to the message", new_classroom_message_comment_path(@classroom.id, message.id, @comment) %></p>
-  <% end %>
-<% end %>
+  </div>
+</div>

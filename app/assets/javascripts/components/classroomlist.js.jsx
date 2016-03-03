@@ -9,30 +9,28 @@ var StudentContent = React.createClass({
       var MembershipInfo = self.props.memberships.map(function (membership) {
         return(
           <div key={membership.classroom.id}>
-            <hr></hr>
-            <h3>{membership.classroom.classroom_name}</h3>
-            <p>{membership.classroom.passcode}</p>
-            <p>{membership.classroom.teacher.name}</p>
-            <a href={"/classrooms/"+membership.classroom.id}>Enter classroom</a>
+            <div className="panel panel-primary">
+              <div className="panel-heading">
+                <h3 className="panel-title">{membership.classroom.classroom_name}</h3>
+              </div>
+                <div className="panel-body">
+                  <p>Teacher: {membership.classroom.teacher.name}</p>
+                  <a href={"/classrooms/"+membership.classroom.id}>Enter classroom</a>
+                </div>
+              </div>
           </div>
         );
       });
     };
     return(
       <div className="StudentContent">
-        <h1>ClassList goes here</h1>
+        <h3>Classrooms you are a member of</h3>
         <ul>
           {MembershipInfo}
         </ul>
       </div>
     );
   }
-
-//   _checkMembershipForClassroom: function(classroom, membership) {
-//     if (classroom.id === membership.classroom_id) {
-//       return <a href={"/classrooms/"+classroom.id}>Enter classroom</a>
-//     } 
-//   }
 });
 
 var ParentContent = React.createClass({
@@ -46,32 +44,28 @@ render: function () {
       var MembershipInfo = self.props.memberships.map(function (membership) {
         return(
           <div key={membership.classroom.id}>
-            <hr></hr>
-            <h3>{membership.classroom.classroom_name}</h3>
-            <p>{membership.classroom.passcode}</p>
-            <p>{membership.classroom.teacher.name}</p>
-            <a href={"/classrooms/"+membership.classroom.id}>Enter classroom</a>
+            <div className="panel panel-primary">
+              <div className="panel-heading">
+                <h3 className="panel-title">{membership.classroom.classroom_name}</h3>
+              </div>
+                <div className="panel-body">
+                  <p>Teacher: {membership.classroom.teacher.name}</p>
+                  <a href={"/classrooms/"+membership.classroom.id}>Enter classroom</a>
+                </div>
+            </div>
           </div>
         );
       });
     };
     return(
       <div className="StudentContent">
-        <h1>ClassList goes here</h1>
+        <h3>Classrooms you are a member of</h3>
         <ul>
           {MembershipInfo}
         </ul>
       </div>
     );
   }
-
-  // _checkIfTeacherIfClassroom: function(classroom, user) {
-
-  //   if (classroom.teacher_id === user.id) {
-  //     return <a href={"/classrooms/"+classroom.id}>show</a>
-  //   } 
-  //   return <p>You are not a teacher of this classroom</p>
-  // }
 });
 
 var TeacherContent = React.createClass({
@@ -92,7 +86,6 @@ var TeacherContent = React.createClass({
         if (ClassTeacherRelationship != null) { 
           return(
             <div key={classroom.id}>
-              <hr></hr>
               {ClassTeacherRelationship}
             </div>
           );
@@ -102,7 +95,7 @@ var TeacherContent = React.createClass({
 
     return(
       <div className="TeacherContent">
-        <h1>ClassList goes here</h1>
+        <h3>Classrooms you are the teacher of</h3>
         <ul>
           {ClassroomInfo}
         </ul>
@@ -114,11 +107,16 @@ var TeacherContent = React.createClass({
 
     if (classroom.teacher_id === user.id) {
       return(
-        <div>  
-          <a href={"/classrooms/"+classroom.id}>show</a>
-          <h3>{classroom.classroom_name}</h3>
-          <p>{classroom.passcode}</p>
-          <p>{classroom.teacher.name}</p>
+        <div>
+          <div className="panel panel-primary">
+            <div className="panel-heading">
+              <h3 className="panel-title">{classroom.classroom_name}</h3>
+            </div>
+              <div className="panel-body">
+                <p>Teacher: {classroom.teacher.name}</p>
+                <a href={"/classrooms/"+classroom.id}>show</a>
+              </div>
+          </div>
         </div>
       )
     } 
@@ -160,25 +158,37 @@ var ClassroomSearchForm = React.createClass({
 
     return (
       <div>
-        <input type="text" value={this.state.searchClassroomName} onChange={this.handleChange} placeholder="Search by Classroom name" />
+        <div className="panel">
+          <input className="form-control" type="text" value={this.state.searchClassroomName} onChange={this.handleChange} placeholder="Search by Classroom name" />
+        </div>
           <ul> 
             { classrooms.map(function(classroom) {
               if ( ListOfValidMemberships.indexOf(classroom.id) != -1) {
                 return( 
                   <div id="searchClassroomNameResult">
-                    <h3>{classroom.classroom_name}</h3>
-                    <p>{classroom.passcode}</p>
-                    <p>{classroom.teacher.name}</p>
-                    <a href={"/classrooms/"+classroom.id}>Enter classroom</a>
+                    <div className="panel panel-info">
+                      <div className="panel-heading">
+                        <h3 className="panel-title">{classroom.classroom_name}</h3>
+                      </div>
+                        <div className="panel-body">
+                          <p>Teacher: {classroom.teacher.name}</p>
+                          <a href={"/classrooms/"+classroom.id}>Enter classroom</a>
+                      </div>
+                    </div>
                   </div>
                 )
               } else {
                 return(
                   <div id="searchClassroomNameResult">
-                    <h3>{classroom.classroom_name}</h3>
-                    <p>{classroom.passcode}</p>
-                    <p>{classroom.teacher.name}</p>
-                    <a href={"/classrooms/"+classroom.id+"/"+userType.toLowerCase()+"_memberships/new"}>Join Classroom</a>
+                    <div className="panel panel-danger">
+                      <div className="panel-heading">
+                        <h3 className="panel-title">{classroom.classroom_name}</h3>
+                      </div>
+                        <div className="panel-body">
+                          <p>Teacher: {classroom.teacher.name}</p>
+                          <a href={"/classrooms/"+classroom.id+"/"+userType.toLowerCase()+"_memberships/new"}>Join Classroom</a>
+                      </div>
+                    </div>
                   </div>
                 )
               };
@@ -202,9 +212,15 @@ var ClassList = React.createClass({
     var CheckIfTeacher = this._checkTeacherType(this.props.userType)
 
     return(
-      <div className="ClassList">
-        { ClassUserView }
-        { CheckIfTeacher }
+      <div className="ClassList custom-list">
+        <div className="row">
+          <div className="col-md-6">
+            { ClassUserView }
+          </div>
+          <div className="col-md-6">
+            { CheckIfTeacher }
+          </div>
+        </div>
       </div>
     );
   },
@@ -242,7 +258,12 @@ var ClassList = React.createClass({
     var userType = this.props.userType
 
     if (userType != 'Teacher') {
-      return <ClassroomSearchForm classrooms={classrooms} user={user} memberships={memberships} userType={userType}/>
+      return (
+        <div>
+          <h3> Search for a classroom </h3>
+          <ClassroomSearchForm classrooms={classrooms} user={user} memberships={memberships} userType={userType}/>
+        </div>
+      )
     }
   }
 });

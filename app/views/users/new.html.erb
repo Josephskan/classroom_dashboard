@@ -1,39 +1,41 @@
-<% if @current_user %>
-  <% redirect_to classrooms_path %>
-<% else %>
-  <h1>Sign Up Form</h1>
-  <%= form_for @user do |f| %>
-    <div>
-      <%= f.label :username %><br>
-      <%= f.text_field :username %>
-    </div>
-    <div>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </div>
-    <div>
-      <%= f.label :email %><br>
-      <%= f.text_field :email %>
-    </div>
-    <div>
-      <%= f.radio_button(:type, "Teacher") %>
-      <%= f.label(:type_teacher, "I am a Teacher") %><br>
-      <%= f.radio_button(:type, "Student") %>
-      <%= f.label(:type_student, "I am a Student") %><br>
-      <%= f.radio_button(:type, "Parent") %>
-      <%= f.label(:type_parent, "I am a Parent") %><br>
-    </div>
-    <div>
-      <%= f.label :password %><br>
-      <%= f.password_field :password %>
-    </div>
-    <div>
-      <%= f.label :password_confirmation %><br>
-      <%= f.password_field :password_confirmation %>
-    </div>
-    <div>
-      <%= f.submit "Submit" %> 
-    </div>
+  <div class="custom-standard-view">
+  <% if @current_user %>
+    <% redirect_to classrooms_path %>
+  <% else %>
+    <h1>Sign Up</h1>
+    <%= form_for @user do |f| %>
+      <div>
+        <%= f.label :username %><br>
+        <%= f.text_field :username %>
+      </div>
+      <div>
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div>
+        <%= f.label :email %><br>
+        <%= f.text_field :email %>
+      </div>
+      <div>
+        <%= f.radio_button(:type, "Teacher") %>
+        <%= f.label(:type_teacher, "I am a Teacher") %><br>
+        <%= f.radio_button(:type, "Student") %>
+        <%= f.label(:type_student, "I am a Student") %><br>
+        <%= f.radio_button(:type, "Parent") %>
+        <%= f.label(:type_parent, "I am a Parent") %><br>
+      </div>
+      <div>
+        <%= f.label :password %><br>
+        <%= f.password_field :password %>
+      </div>
+      <div>
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation %>
+      </div>
+      <div>
+        <%= f.submit "Submit" %> 
+      </div>
+    <% end %>
   <% end %>
   <p> Already have an account? <%= link_to "Login!", new_session_path %></p>
-<% end %>
+</div>

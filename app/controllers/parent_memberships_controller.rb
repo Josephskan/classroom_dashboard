@@ -5,6 +5,7 @@ class ParentMembershipsController < ApplicationController
 
   def new
     @parent_membership = ParentMembership.new
+    @classroom = Classroom.find(params[:classroom_id])
   end
 
   def create

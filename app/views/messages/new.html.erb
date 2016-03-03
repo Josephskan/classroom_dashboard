@@ -1,25 +1,27 @@
-<h1>What message would you like to make?</h1>
-<%= link_to "return to classroom?", classroom_path(@classroom) %>
+<div class="custom-standard-view">
+  <h1>What message would you like to make?</h1>
+  <%= link_to "return to classroom?", classroom_path(@classroom) %>
 
-<%= form_for [@classroom, @message] do |f| %>
-  <div>
-    <p>select the message type:</p>
-    <%= f.radio_button(:type, "General") %>
-    <%= f.label(:type_general, "General") %><br>
-    <%= f.radio_button(:type, "Homework") %>
-    <%= f.label(:type_homework, "Homework") %><br>
-    <%= f.radio_button(:type, "Reminder") %>
-    <%= f.label(:type_reminder, "Reminder") %><br>
-  </div>
-  <div>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div>
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </div>
-  <div>
-    <%= f.submit "Submit" %> 
-  </div>
-<% end %>
+  <%= form_for [@classroom, @message] do |f| %>
+    <div>
+      <p>select the message type:</p>
+      <%= f.radio_button(:type, "General") %>
+      <%= f.label(:type_general, "General") %><br>
+      <%= f.radio_button(:type, "Homework") %>
+      <%= f.label(:type_homework, "Homework") %><br>
+      <%= f.radio_button(:type, "Reminder") %>
+      <%= f.label(:type_reminder, "Reminder") %><br>
+    </div>
+    <div>
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :text %><br>
+      <%= f.text_area :text %>
+    </div>
+    <div>
+      <%= f.submit "Submit" %> 
+    </div>
+  <% end %>
+</div>
